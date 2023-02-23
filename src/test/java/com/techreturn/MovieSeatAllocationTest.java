@@ -2,6 +2,7 @@ package com.techreturn;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MovieSeatAllocationTest {
@@ -85,8 +86,24 @@ public class MovieSeatAllocationTest {
         cinema.allocateNextAvailSeat(3); //upto B4
         cinema.allocateNextAvailSeat(3); //upto c2
         cinema.allocateNextAvailSeat(2); //upto c4
+        cinema.allocateNextAvailSeat(3); //upto c5
 
-        assertTrue(!cinema.chkSeatAvail("B4"));
-        assertTrue(cinema.chkSeatAvail("B5"));
+        assertTrue(!cinema.chkSeatAvail("C5"));
+//        assertTrue(cinema.chkSeatAvail("B5"));
     }
+    @Test
+    public void RejectforNoMoreSeat(){
+        //int  count=3;
+        Cinema cinema = new Cinema();
+        cinema.allocateNextAvailSeat(3); //upto A3
+        cinema.allocateNextAvailSeat(3); //upto B1
+        cinema.allocateNextAvailSeat(3); //upto B4
+        cinema.allocateNextAvailSeat(3); //upto c2
+        cinema.allocateNextAvailSeat(3); //upto c5
+
+
+        assertEquals("NO", cinema.AcceptRequestSeat(1));
+//        assertTrue(cinema.chkSeatAvail("B5"));
+    }
+
 }

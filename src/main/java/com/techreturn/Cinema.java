@@ -60,6 +60,39 @@ public class Cinema {
 
     }
 
+    public String SearchNextAvailSeat(){
+        boolean found = false;
+        boolean EndofAllSeats = false;
+        int rowNum = 0;
+        int rowIdx= 0;
+
+        while ((!found) && (!EndofAllSeats)) {
+            while (rowNum< 5) {
+                if (this.listOfSeats[rowIdx][rowNum].sts.equals(STATUS.AVAIL)) {
+                    found = true;
+                    break;
+                } else {
+                    rowNum++;
+                }
+            }
+            if (!found) {
+                rowIdx++;
+                if (rowIdx >=3){
+                    EndofAllSeats = true;
+                }else {
+                    rowNum = 0;
+                }
+            }
+        }
+        //format seat no. using rowIdx & rowNum
+        if (EndofAllSeats == true){
+            return null;
+        }
+        else
+            return (this.listOfSeats[rowIdx][rowNum].rowLabel +
+                    String.valueOf(this.listOfSeats[rowIdx][rowNum].rowNum));
+    }
+
     public void allocateNextAvailSeat(int count) {
         //read each row and look for next available seat
         boolean found = false;
@@ -102,6 +135,38 @@ public class Cinema {
             if (rowIdx >=3) {
                 EndofAllSeats =true;
             }
+        }
+    }
+
+    public int remainingSeats() {
+        String nextSeat = SearchNextAvailSeat();
+        int remainingRows =0;
+        int availOnRow = 0;
+
+        if (nextSeat == null){
+            return 0;
+            //get seat number and check if remaining
+        }else {
+            availOnRow = 5 - Character.getNumericValue(nextSeat.charAt(1));
+            switch (nextSeat.substring(0,1) ) {
+                case "A":
+                    remainingRows =2;
+                case "B":
+                    remainingRows =1;
+                case "C":
+                    remainingRows =0;
+            }
+            return (remainingRows*5 + availOnRow);
+        }
+
+    }
+
+    public String AcceptRequestSeat(int i) {
+        if (remainingSeats() >= i){
+            return ("YES");
+        }
+        else {
+            return ("NO");
         }
     }
 }
