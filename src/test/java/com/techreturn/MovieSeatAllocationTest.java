@@ -99,10 +99,10 @@ public class MovieSeatAllocationTest {
         cinema.allocateNextAvailSeat(3); //upto B1
         cinema.allocateNextAvailSeat(3); //upto B4
         cinema.allocateNextAvailSeat(3); //upto c2
-        cinema.allocateNextAvailSeat(3); //upto c5
+        cinema.allocateNextAvailSeat(2); //upto c4
 
 
-        assertEquals("NO", cinema.AcceptRequestSeat(1));
+        assertEquals("NO", cinema.AcceptRequestSeat(3));
 //        assertTrue(cinema.chkSeatAvail("B5"));
     }
 
