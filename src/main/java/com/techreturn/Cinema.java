@@ -147,8 +147,7 @@ public class Cinema {
             return 0;
             //get seat number and check if remaining
         }else {
-            System.out.println("... next seat is "+nextSeat);
-            availOnRow = 5 - Character.getNumericValue(nextSeat.charAt(1));
+            availOnRow = 5 - ( Character.getNumericValue(nextSeat.charAt(1))-1);
             switch (nextSeat.substring(0,1) ) {
                 case "A":
                     remainingRows =2;
@@ -160,6 +159,8 @@ public class Cinema {
                     remainingRows =0;
                     break;
             }
+            int remains = remainingRows*5 + availOnRow;
+            System.out.println("next seat is "+nextSeat+" and  "+String.valueOf(remains));
             return (remainingRows*5 + availOnRow);
         }
 

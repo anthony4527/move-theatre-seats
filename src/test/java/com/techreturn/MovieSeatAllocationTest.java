@@ -106,4 +106,15 @@ public class MovieSeatAllocationTest {
 //        assertTrue(cinema.chkSeatAvail("B5"));
     }
 
+    //Test boundary case of last allocated is C4
+    @Test
+    public void AllocateLastSeatTes() {
+        //int  count=3;
+        Cinema cinema = new Cinema();
+        for (int i = 0; i < 4; i++) {
+            cinema.allocateNextAvailSeat(3); //upto A3
+        }
+        cinema.allocateNextAvailSeat(2); //upto C4
+        assertEquals(1, cinema.remainingSeats());
+    }
 }
