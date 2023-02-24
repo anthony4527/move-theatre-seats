@@ -160,7 +160,7 @@ public class Cinema {
                     break;
             }
             int remains = remainingRows*5 + availOnRow;
-            System.out.println("next seat is "+nextSeat+" and  "+String.valueOf(remains));
+            //System.out.println("next seat is "+nextSeat+" and  "+String.valueOf(remains));
             return (remainingRows*5 + availOnRow);
         }
 
