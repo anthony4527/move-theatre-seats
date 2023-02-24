@@ -147,14 +147,18 @@ public class Cinema {
             return 0;
             //get seat number and check if remaining
         }else {
+            System.out.println("... next seat is "+nextSeat);
             availOnRow = 5 - Character.getNumericValue(nextSeat.charAt(1));
             switch (nextSeat.substring(0,1) ) {
                 case "A":
                     remainingRows =2;
+                    break;
                 case "B":
                     remainingRows =1;
+                    break;
                 case "C":
                     remainingRows =0;
+                    break;
             }
             return (remainingRows*5 + availOnRow);
         }
