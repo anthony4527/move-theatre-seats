@@ -28,7 +28,6 @@ public class Main {
                        //remains = cinema.remainingSeats();
                        nextSeat = cinema.SearchNextAvailSeat();
                        remains = cinema.remainingSeats(nextSeat);
-
                        if (remains  == 0){
                            fullyBooked =true;
                        }

@@ -21,18 +21,6 @@ public class Cinema {
         // set each
         for (int i=0; i< MaxRow; i++){
             label = labelMap.get(i);
-            /*
-            switch (i) {
-                case 0:
-                    label = "A";
-                    break;
-                case 1:
-                    label = "B";
-                    break;
-                case 2:
-                    label = "C";
-                    break;
-            }*/
             for (int j=0; j<MaxRowSeat; j++){
                 this.listOfSeats[i][j] = new MovieSeat(label,j+1);
             }
@@ -40,13 +28,14 @@ public class Cinema {
     }
 
     public int mapRowIndex( String rowLabel){
-        //String rowLabel = seatNo.substring(0,1);
-        return (switch (rowLabel) {
-            case "A" -> 0;
-            case "B" -> 1;
-            case "C" -> 2;
-            default -> -1;
-        });
+        //lookup hashmap to find the index for row A,B, & C
+        int rowIdx = -1;
+        for (int i : labelMap.keySet()){
+            if (labelMap.get(i).equals(rowLabel)){
+                rowIdx = i;
+            }
+        }
+        return rowIdx;
     }
     public boolean chkSeatAvail(String seatNo){
 
