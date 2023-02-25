@@ -25,8 +25,8 @@ If the remaining seats are not sufficient, the request will not be processed.
 The Main program will generate a random request for number of seats for allocation. By running the main(), it will shows the seats which are allocated. I have added the logic that to continue generate random number until the last seatis allocated  i.e.
 until all seats are fully allocated.
 
-All the classes have been refactored, with D.R.Y. and Single responsibility principle applied, by breaking down the initial codes into smaller and manageable classes.
+All the classes have been refactored, with D.R.Y. and Single responsibility principles applied, by breaking down the initial codes into smaller and manageable classes.
 
 Future development
 =================
-The classes have been developed such that they can be easily updated to support different sizes of cinema seatings. The allocation class can also be updated to handle additional rules for allocaion e.g. it includes method to reserve a specific seat, which is dffierent from the current sequentail allocation scheme. Additional search method can be added to the SeatsCheck class to lookup available seats wgen seats are not reserved by sequential rule (e.g. customers select abailable seats).
+The classes have been developed such that they can be easily updated to support different sizes of cinema seatings. The allocation class can also be updated to handle additional rules for allocaion e.g. it includes method to reserve a specific seat, which is dffierent from the current sequentail allocation scheme. Additional search method can be added to the SeatsCheck class to lookup available seats when seats are not reserved by sequential rule (e.g. customers select abailable seats).
