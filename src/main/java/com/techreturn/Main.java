@@ -17,7 +17,7 @@ public class Main {
         remains = cinema.remainingSeats(nextSeat);
         // while not fully booked, generate random no. of tickets request and call allocate next method
         while (!fullyBooked) {
-               count = (int) Math.floor(Math.random() * MaxPerRequest);  //random no to include 3
+               count = (int) Math.ceil(Math.random() * MaxPerRequest);  //random no to include 3
                System.out.println(">> request is "+count);
                if (count>0) {
                    // check if any more seat left, and set fully Booked

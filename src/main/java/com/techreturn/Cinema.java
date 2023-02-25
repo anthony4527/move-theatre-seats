@@ -15,6 +15,7 @@ public class Cinema {
     //init all seat as available
     public Cinema(){
         String label;
+        //construct all seats for cinema
         labelMap.put(0, "A");
         labelMap.put(1, "B");
         labelMap.put(2, "C");
