@@ -8,7 +8,7 @@ public class Cinema {
     public final int MaxRow = 3;
     public final int MaxRowSeat = 5;
 
-    MovieSeat[][] listOfSeats = new MovieSeat[MaxRow][MaxRowSeat];
+    protected MovieSeat[][] listOfSeats = new MovieSeat[MaxRow][MaxRowSeat];
     // a map of the array index to label
     Map<Integer, String> labelMap = new HashMap<Integer, String>();
 
