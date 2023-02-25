@@ -52,7 +52,6 @@ public final int MaxRow = 3;
         else {
             return false;
         }
-
     }
 
     public void allocateSeat(String seatNo) {
@@ -64,7 +63,6 @@ public final int MaxRow = 3;
         } else {
             System.out.println("seat not available, allocation not done!!  ");
         }
-
     }
 
     public MovieSeat SearchNextAvailSeat(){
@@ -97,33 +95,12 @@ public final int MaxRow = 3;
         }
         else
             return this.listOfSeats[rowIdx][rowNum];
-            /*
-            return (this.listOfSeats[rowIdx][rowNum].rowLabel +
-                    String.valueOf(this.listOfSeats[rowIdx][rowNum].rowNum));*/
     }
 
     public void allocateNextAvailSeat(int count) {
-        //read each row and look for next available seat
-        //boolean found = false;
-        //boolean parseAllRows = false;
         int rowNum = 0;
         int rowIdx= 0;
 
-        /*
-        while (!found){
-            while (rowNum< MaxRowSeat) {
-                if (this.listOfSeats[rowIdx][rowNum].sts.equals(STATUS.AVAIL)) {
-                    found = true;
-                    break;
-                } else {
-                    rowNum++;
-                }
-            }
-            if (!found) {
-                rowIdx++;
-                rowNum = 0;
-            }
-        }*/
         //search next available seat
         // check remaining available seats
         // if count <= remaining then allocate else throw error
@@ -155,11 +132,9 @@ public final int MaxRow = 3;
             }
         }
 
-
     }
 
     public int remainingSeats(MovieSeat nextSeat) {
-        //String nextSeat = SearchNextAvailSeat();
         int remainingRows =0;
         int availOnRow = 0;
 
@@ -169,22 +144,7 @@ public final int MaxRow = 3;
         }else {
             availOnRow = MaxRowSeat - nextSeat.rowNum +1; //( Character.getNumericValue(nextSeat.charAt(1))-1);
             remainingRows = MaxRow - mapRowIndex(nextSeat.rowLabel)-1;
-            /*
-            switch (nextSeat. ) {
-                case "A":
-                    remainingRows =2;
-                    break;
-                case "B":
-                    remainingRows =1;
-                    break;
-                case "C":
-                    remainingRows =0;
-                    break;
-            }
 
-             */
-            //int remains = remainingRows*MaxRowSeat + availOnRow;
-            //System.out.println("next seat is "+nextSeat+" and  "+String.valueOf(remains));
             return (remainingRows*MaxRowSeat + availOnRow);
         }
 
