@@ -13,19 +13,17 @@ public class Main {
         Cinema cinema = new Cinema();
         System.out.println("***Cinnamon Movie Ticket Allocation start ....\n");
 
-        //remains = cinema.remainingSeats();
         MovieSeat nextSeat = cinema.SearchNextAvailSeat();
         remains = cinema.remainingSeats(nextSeat);
         // while not fully booked, generate random no. of tickets request and call allocate next method
         while (!fullyBooked) {
-               count = (int) Math.floor(Math.random() * MaxPerRequest);
+               count = (int) Math.floor(Math.random() * MaxPerRequest);  //random no to include 3
                System.out.println(">> request is "+count);
                if (count>0) {
                    // check if any more seat left, and set fully Booked
                    //if count is less than remaining seat, proceed to book, otherwise reject
                    if (count <= remains) {
                        cinema.allocateNextAvailSeat(count);
-                       //remains = cinema.remainingSeats();
                        nextSeat = cinema.SearchNextAvailSeat();
                        remains = cinema.remainingSeats(nextSeat);
                        if (remains  == 0){
