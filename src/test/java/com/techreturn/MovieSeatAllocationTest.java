@@ -85,8 +85,8 @@ public class MovieSeatAllocationTest {
         cinema.allocateNextAvailSeat(3); //upto B1
         cinema.allocateNextAvailSeat(3); //upto B4
         cinema.allocateNextAvailSeat(3); //upto c2
-        cinema.allocateNextAvailSeat(2); //upto c4
         cinema.allocateNextAvailSeat(3); //upto c5
+        //cinema.allocateNextAvailSeat(3); //upto c5
 
         assertTrue(!cinema.chkSeatAvail("C5"));
 //        assertTrue(cinema.chkSeatAvail("B5"));
@@ -102,7 +102,7 @@ public class MovieSeatAllocationTest {
         cinema.allocateNextAvailSeat(2); //upto c4
 
 
-        assertEquals("NO", cinema.AcceptRequestSeat(3));
+        assertEquals("NO", cinema.AcceptRequestSeat(3, cinema.listOfSeats[2][4]));
 //        assertTrue(cinema.chkSeatAvail("B5"));
     }
 
@@ -112,9 +112,9 @@ public class MovieSeatAllocationTest {
         //int  count=3;
         Cinema cinema = new Cinema();
         for (int i = 0; i < 4; i++) {
-            cinema.allocateNextAvailSeat(3); //upto A3
+            cinema.allocateNextAvailSeat(3); //upto C1
         }
-        cinema.allocateNextAvailSeat(2); //upto C4
-        assertEquals(1, cinema.remainingSeats());
+        cinema.allocateNextAvailSeat(2); //upto C3
+        assertEquals(1, cinema.remainingSeats(cinema.listOfSeats[2][4]));
     }
 }

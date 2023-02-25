@@ -27,8 +27,8 @@ public final int MaxRow = 3;
         }
     }
 
-    public int mapRowIndex( String seatNo){
-        String rowLabel = seatNo.substring(0,1);
+    public int mapRowIndex( String rowLabel){
+        //String rowLabel = seatNo.substring(0,1);
         return (switch (rowLabel) {
             case "A" -> 0;
             case "B" -> 1;
@@ -44,7 +44,7 @@ public final int MaxRow = 3;
         String rowLabel = seatNo.substring(0,1);
         int rowNum = Character.getNumericValue(seatNo.charAt(1))-1;
         //lookup list of seat to check seat status
-        rowIndex = mapRowIndex(seatNo);
+        rowIndex = mapRowIndex(rowLabel);
 
         if (listOfSeats[rowIndex][rowNum].sts.equals(STATUS.AVAIL) ){
             return true;
@@ -56,14 +56,18 @@ public final int MaxRow = 3;
     }
 
     public void allocateSeat(String seatNo) {
-        int RowIndex = mapRowIndex(seatNo);
+        int RowIndex = mapRowIndex(seatNo.substring(0,1));
         int rowNum = Character.getNumericValue(seatNo.charAt(1))-1;
 
-        this.listOfSeats[RowIndex][rowNum].sts = STATUS.ALLOCATED;
+        if (this.listOfSeats[RowIndex][rowNum].sts == STATUS.AVAIL){
+            this.listOfSeats[RowIndex][rowNum].sts = STATUS.ALLOCATED;
+        } else {
+            System.out.println("seat not available, allocation not done!!  ");
+        }
 
     }
 
-    public String SearchNextAvailSeat(){
+    public MovieSeat SearchNextAvailSeat(){
         boolean found = false;
         boolean EndofAllSeats = false;
         int rowNum = 0;
@@ -92,17 +96,20 @@ public final int MaxRow = 3;
             return null;
         }
         else
+            return this.listOfSeats[rowIdx][rowNum];
+            /*
             return (this.listOfSeats[rowIdx][rowNum].rowLabel +
-                    String.valueOf(this.listOfSeats[rowIdx][rowNum].rowNum));
+                    String.valueOf(this.listOfSeats[rowIdx][rowNum].rowNum));*/
     }
 
     public void allocateNextAvailSeat(int count) {
         //read each row and look for next available seat
-        boolean found = false;
-        boolean parseAllRows = false;
+        //boolean found = false;
+        //boolean parseAllRows = false;
         int rowNum = 0;
         int rowIdx= 0;
 
+        /*
         while (!found){
             while (rowNum< MaxRowSeat) {
                 if (this.listOfSeats[rowIdx][rowNum].sts.equals(STATUS.AVAIL)) {
@@ -116,33 +123,43 @@ public final int MaxRow = 3;
                 rowIdx++;
                 rowNum = 0;
             }
+        }*/
+        //search next available seat
+        // check remaining available seats
+        // if count <= remaining then allocate else throw error
+        MovieSeat nextSeat = SearchNextAvailSeat();
+        int remains = remainingSeats(nextSeat);
+        rowIdx = mapRowIndex(nextSeat.rowLabel) ;
+        rowNum = nextSeat.rowNum -1;
+        if (remains >= count) {
+            boolean     EndofAllSeats = false;
+            int times = 1;
+            while ((!EndofAllSeats) && (times <= count)) {
+                if ( this.listOfSeats[rowIdx][rowNum].sts.equals(STATUS.AVAIL)){
+                    this.listOfSeats[rowIdx][rowNum].sts = STATUS.ALLOCATED;
+                    System.out.println("Next available seat is "+this.listOfSeats[rowIdx][rowNum].rowLabel +
+                            String.valueOf(this.listOfSeats[rowIdx][rowNum].rowNum) +"...ALLOCATED");
+                } else {
+                    System.out.println("Unexpected error - next seat not available");
+                }
+                times++;
+                rowNum++;
+                //if rowNum reaches end, allocate from next row left most
+                if (rowNum >= MaxRowSeat){
+                    rowIdx++;
+                    rowNum = 0;
+                }
+                if (rowIdx >=MaxRow) {
+                    EndofAllSeats =true;
+                }
+            }
         }
 
-        boolean     EndofAllSeats = false;
-        int times = 1;
-        while ((!EndofAllSeats) && (times <= count)) {
-            if ( this.listOfSeats[rowIdx][rowNum].sts.equals(STATUS.AVAIL)){
-                this.listOfSeats[rowIdx][rowNum].sts = STATUS.ALLOCATED;
-                System.out.println("Next available seat is "+this.listOfSeats[rowIdx][rowNum].rowLabel +
-                        String.valueOf(this.listOfSeats[rowIdx][rowNum].rowNum) +"...ALLOCATED");
-            } else {
-                System.out.println("Unexpected error - next seat not available");
-            }
-            times++;
-            rowNum++;
-            //if rowNum reaches end, allocate from next row left most
-            if (rowNum >= MaxRowSeat){
-                rowIdx++;
-                rowNum = 0;
-            }
-            if (rowIdx >=MaxRow) {
-                EndofAllSeats =true;
-            }
-        }
+
     }
 
-    public int remainingSeats() {
-        String nextSeat = SearchNextAvailSeat();
+    public int remainingSeats(MovieSeat nextSeat) {
+        //String nextSeat = SearchNextAvailSeat();
         int remainingRows =0;
         int availOnRow = 0;
 
@@ -150,8 +167,10 @@ public final int MaxRow = 3;
             return 0;
             //get seat number and check if remaining
         }else {
-            availOnRow = MaxRowSeat - ( Character.getNumericValue(nextSeat.charAt(1))-1);
-            switch (nextSeat.substring(0,1) ) {
+            availOnRow = MaxRowSeat - nextSeat.rowNum +1; //( Character.getNumericValue(nextSeat.charAt(1))-1);
+            remainingRows = MaxRow - mapRowIndex(nextSeat.rowLabel)-1;
+            /*
+            switch (nextSeat. ) {
                 case "A":
                     remainingRows =2;
                     break;
@@ -162,15 +181,17 @@ public final int MaxRow = 3;
                     remainingRows =0;
                     break;
             }
-            int remains = remainingRows*MaxRowSeat + availOnRow;
+
+             */
+            //int remains = remainingRows*MaxRowSeat + availOnRow;
             //System.out.println("next seat is "+nextSeat+" and  "+String.valueOf(remains));
             return (remainingRows*MaxRowSeat + availOnRow);
         }
 
     }
 
-    public String AcceptRequestSeat(int i) {
-        if (remainingSeats() >= i){
+    public String AcceptRequestSeat(int i, MovieSeat seat) {
+        if (remainingSeats(seat) >= i){
             return ("YES");
         }
         else {
