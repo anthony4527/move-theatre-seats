@@ -28,7 +28,7 @@ public class MovieSeatAllocationTest {
         int count =1;
         Cinema cinema = new Cinema();
         cinema.allocateSeat("A1");
-        cinema.allocateNextAvailSeat(count);
+        Allocation.allocateNextAvailSeat(count, cinema);
         assertTrue(!cinema.chkSeatAvail("A2"));
     }
     @Test
@@ -38,7 +38,7 @@ public class MovieSeatAllocationTest {
         Cinema cinema = new Cinema();
         cinema.allocateSeat("A1");
         cinema.allocateSeat("A2");
-        cinema.allocateNextAvailSeat(count);
+        Allocation.allocateNextAvailSeat(count, cinema);
         assertTrue(!cinema.chkSeatAvail("A3"));
     }
 
@@ -47,7 +47,7 @@ public class MovieSeatAllocationTest {
         //String seatNo = "A1";
         int  count=3;
         Cinema cinema = new Cinema();
-        cinema.allocateNextAvailSeat(count);
+        Allocation.allocateNextAvailSeat(count, cinema);
         assertTrue(!cinema.chkSeatAvail("A1"));
         assertTrue(!cinema.chkSeatAvail("A2"));
     }
@@ -58,8 +58,8 @@ public class MovieSeatAllocationTest {
         Cinema cinema = new Cinema();
         // allocate three seats for one customers
         //allocte another three seats for another customers
-        cinema.allocateNextAvailSeat(count);
-        cinema.allocateNextAvailSeat(count);
+        Allocation.allocateNextAvailSeat(count, cinema);
+        Allocation.allocateNextAvailSeat(count, cinema);
         //allocated upto B1,next available is B3
         assertTrue(!cinema.chkSeatAvail("B1"));
         assertTrue(cinema.chkSeatAvail("B2"));
@@ -68,10 +68,10 @@ public class MovieSeatAllocationTest {
     public void AllocateUptoThreeRows(){
         int  count=3;
         Cinema cinema = new Cinema();
-        cinema.allocateNextAvailSeat(count); //upto A3
-        cinema.allocateNextAvailSeat(count); //upto B1
-        cinema.allocateNextAvailSeat(count); //upto B4
-        cinema.allocateNextAvailSeat(count); //upto c2
+        Allocation.allocateNextAvailSeat(count, cinema);//upto A3
+        Allocation.allocateNextAvailSeat(count, cinema);//upto B1
+        Allocation.allocateNextAvailSeat(count, cinema);//upto B4
+        Allocation.allocateNextAvailSeat(count, cinema);//upto C2
 
         assertTrue(!cinema.chkSeatAvail("C2"));
         assertTrue(cinema.chkSeatAvail("C3"));
@@ -81,11 +81,11 @@ public class MovieSeatAllocationTest {
     public void AllocateUptoFullSeat(){
         //int  count=3;
         Cinema cinema = new Cinema();
-        cinema.allocateNextAvailSeat(3); //upto A3
-        cinema.allocateNextAvailSeat(3); //upto B1
-        cinema.allocateNextAvailSeat(3); //upto B4
-        cinema.allocateNextAvailSeat(3); //upto c2
-        cinema.allocateNextAvailSeat(3); //upto c5
+        Allocation.allocateNextAvailSeat(3, cinema); //upto A3
+        Allocation.allocateNextAvailSeat(3, cinema); //upto B1
+        Allocation.allocateNextAvailSeat(3, cinema); //upto B4
+        Allocation.allocateNextAvailSeat(3, cinema); //upto c2
+        Allocation.allocateNextAvailSeat(3, cinema); //upto c5
         //cinema.allocateNextAvailSeat(3); //upto c5
 
         assertTrue(!cinema.chkSeatAvail("C5"));
@@ -95,11 +95,12 @@ public class MovieSeatAllocationTest {
     public void RejectforNoMoreSeat(){
         //int  count=3;
         Cinema cinema = new Cinema();
-        cinema.allocateNextAvailSeat(3); //upto A3
-        cinema.allocateNextAvailSeat(3); //upto B1
-        cinema.allocateNextAvailSeat(3); //upto B4
-        cinema.allocateNextAvailSeat(3); //upto c2
-        cinema.allocateNextAvailSeat(2); //upto c4
+
+        Allocation.allocateNextAvailSeat(3, cinema); //upto A3
+        Allocation.allocateNextAvailSeat(3, cinema); //upto B1
+        Allocation.allocateNextAvailSeat(3, cinema); //upto B4
+        Allocation.allocateNextAvailSeat(3, cinema); //upto c2
+        Allocation.allocateNextAvailSeat(2, cinema); //upto c4
 
 
         assertEquals("NO", cinema.AcceptRequestSeat(3, cinema.listOfSeats[2][4]));
@@ -112,9 +113,9 @@ public class MovieSeatAllocationTest {
         //int  count=3;
         Cinema cinema = new Cinema();
         for (int i = 0; i < 4; i++) {
-            cinema.allocateNextAvailSeat(3); //upto C1
+            Allocation.allocateNextAvailSeat(3, cinema); //upto C1
         }
-        cinema.allocateNextAvailSeat(2); //upto C3
-        assertEquals(1, cinema.remainingSeats(cinema.listOfSeats[2][4]));
+        Allocation.allocateNextAvailSeat(2, cinema); //upto C3
+        assertEquals(1, SeatsCheck.remainingSeats(cinema.listOfSeats[2][4],cinema));
     }
 }

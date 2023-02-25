@@ -66,7 +66,7 @@ public class Cinema {
             System.out.println("seat not available, allocation not done!!  ");
         }
     }
-
+/*
     public MovieSeat SearchNextAvailSeat(){
         boolean found = false;
         boolean EndofAllSeats = false;
@@ -98,7 +98,8 @@ public class Cinema {
         else
             return this.listOfSeats[rowIdx][rowNum];
     }
-
+*/
+    /*
     public void allocateNextAvailSeat(int count) {
         int rowNum = 0;
         int rowIdx= 0;
@@ -106,7 +107,7 @@ public class Cinema {
         //search next available seat
         // check remaining available seats
         // if count <= remaining then allocate else throw error
-        MovieSeat nextSeat = SearchNextAvailSeat();
+        MovieSeat nextSeat = SeatsCheck.SearchNextAvailSeat();
         int remains = remainingSeats(nextSeat);
         rowIdx = mapRowIndex(nextSeat.rowLabel) ;
         rowNum = nextSeat.rowNum -1;
@@ -134,8 +135,9 @@ public class Cinema {
             }
         }
 
-    }
+    }*/
 
+/*
     public int remainingSeats(MovieSeat nextSeat) {
         int remainingRows =0;
         int availOnRow = 0;
@@ -150,10 +152,10 @@ public class Cinema {
             return (remainingRows*MaxRowSeat + availOnRow);
         }
 
-    }
+    }*/
 
     public String AcceptRequestSeat(int i, MovieSeat seat) {
-        if (remainingSeats(seat) >= i){
+        if (SeatsCheck.remainingSeats(seat, this) >= i){
             return ("YES");
         }
         else {
