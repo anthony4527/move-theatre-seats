@@ -31,9 +31,7 @@ public class Main {
                        System.out.println(
                                MessageFormat.format("??? Seat remains  is {0} and request is {1}, cannot allocate! ", String.valueOf(remains), String.valueOf(count)));
                    }
-
                }
-
         }
         System.out.println("### All seats allocated... program will stop");
     }

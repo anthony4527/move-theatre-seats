@@ -1,12 +1,15 @@
 package com.techreturn;
 
 public class Cinema {
-    MovieSeat[][] listOfSeats = new MovieSeat[3][5];
+public final int MaxRow = 3;
+    public final int MaxRowSeat = 5;
+
+    MovieSeat[][] listOfSeats = new MovieSeat[MaxRow][MaxRowSeat];
     //init all seat as available
     public Cinema(){
         // set each
         String label = " ";
-        for (int i=0; i< 3; i++){
+        for (int i=0; i< MaxRow; i++){
             switch (i) {
                 case 0:
                     label = "A";
@@ -18,7 +21,7 @@ public class Cinema {
                     label = "C";
                     break;
             }
-            for (int j=0; j<5; j++){
+            for (int j=0; j<MaxRowSeat; j++){
                 this.listOfSeats[i][j] = new MovieSeat(label,j+1);
             }
         }
@@ -67,7 +70,7 @@ public class Cinema {
         int rowIdx= 0;
 
         while ((!found) && (!EndofAllSeats)) {
-            while (rowNum< 5) {
+            while (rowNum< MaxRowSeat) {
                 if (this.listOfSeats[rowIdx][rowNum].sts.equals(STATUS.AVAIL)) {
                     found = true;
                     break;
@@ -77,7 +80,7 @@ public class Cinema {
             }
             if (!found) {
                 rowIdx++;
-                if (rowIdx >=3){
+                if (rowIdx >=MaxRow){
                     EndofAllSeats = true;
                 }else {
                     rowNum = 0;
@@ -101,7 +104,7 @@ public class Cinema {
         int rowIdx= 0;
 
         while (!found){
-            while (rowNum< 5) {
+            while (rowNum< MaxRowSeat) {
                 if (this.listOfSeats[rowIdx][rowNum].sts.equals(STATUS.AVAIL)) {
                     found = true;
                     break;
@@ -128,11 +131,11 @@ public class Cinema {
             times++;
             rowNum++;
             //if rowNum reaches end, allocate from next row left most
-            if (rowNum >= 5){
+            if (rowNum >= MaxRowSeat){
                 rowIdx++;
                 rowNum = 0;
             }
-            if (rowIdx >=3) {
+            if (rowIdx >=MaxRow) {
                 EndofAllSeats =true;
             }
         }
@@ -147,7 +150,7 @@ public class Cinema {
             return 0;
             //get seat number and check if remaining
         }else {
-            availOnRow = 5 - ( Character.getNumericValue(nextSeat.charAt(1))-1);
+            availOnRow = MaxRowSeat - ( Character.getNumericValue(nextSeat.charAt(1))-1);
             switch (nextSeat.substring(0,1) ) {
                 case "A":
                     remainingRows =2;
@@ -159,9 +162,9 @@ public class Cinema {
                     remainingRows =0;
                     break;
             }
-            int remains = remainingRows*5 + availOnRow;
+            int remains = remainingRows*MaxRowSeat + availOnRow;
             //System.out.println("next seat is "+nextSeat+" and  "+String.valueOf(remains));
-            return (remainingRows*5 + availOnRow);
+            return (remainingRows*MaxRowSeat + availOnRow);
         }
 
     }
