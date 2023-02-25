@@ -11,7 +11,7 @@ public class MovieSeatAllocationTest {
     public void testCinemaSeatAvailability(){
         Cinema cinema = new Cinema();
         String seatNo = "A1";
-        assertTrue(cinema.chkSeatAvail(seatNo));
+        assertTrue(SeatsCheck.chkSeatAvail(seatNo, cinema));
     }
 
     @Test
@@ -19,7 +19,7 @@ public class MovieSeatAllocationTest {
         String seatNo = "A1";
         Cinema cinema = new Cinema();
         cinema.allocateSeat(seatNo);
-        assertTrue(!cinema.chkSeatAvail(seatNo));
+        assertTrue(!SeatsCheck.chkSeatAvail(seatNo, cinema));
     }
 
     @Test
@@ -29,7 +29,7 @@ public class MovieSeatAllocationTest {
         Cinema cinema = new Cinema();
         cinema.allocateSeat("A1");
         Allocation.allocateNextAvailSeat(count, cinema);
-        assertTrue(!cinema.chkSeatAvail("A2"));
+        assertTrue(!SeatsCheck.chkSeatAvail("A2", cinema));
     }
     @Test
     public void AllocatedTwoAvailableTest(){
@@ -39,7 +39,7 @@ public class MovieSeatAllocationTest {
         cinema.allocateSeat("A1");
         cinema.allocateSeat("A2");
         Allocation.allocateNextAvailSeat(count, cinema);
-        assertTrue(!cinema.chkSeatAvail("A3"));
+        assertTrue(!SeatsCheck.chkSeatAvail("A3", cinema));
     }
 
     @Test
@@ -48,8 +48,8 @@ public class MovieSeatAllocationTest {
         int  count=3;
         Cinema cinema = new Cinema();
         Allocation.allocateNextAvailSeat(count, cinema);
-        assertTrue(!cinema.chkSeatAvail("A1"));
-        assertTrue(!cinema.chkSeatAvail("A2"));
+        assertTrue(!SeatsCheck.chkSeatAvail("A1", cinema));
+        assertTrue(!SeatsCheck.chkSeatAvail("A2", cinema));
     }
 
     @Test
@@ -61,8 +61,8 @@ public class MovieSeatAllocationTest {
         Allocation.allocateNextAvailSeat(count, cinema);
         Allocation.allocateNextAvailSeat(count, cinema);
         //allocated upto B1,next available is B3
-        assertTrue(!cinema.chkSeatAvail("B1"));
-        assertTrue(cinema.chkSeatAvail("B2"));
+        assertTrue(!SeatsCheck.chkSeatAvail("B1", cinema));
+        assertTrue(SeatsCheck.chkSeatAvail("B2", cinema));
     }
     @Test
     public void AllocateUptoThreeRows(){
@@ -73,8 +73,8 @@ public class MovieSeatAllocationTest {
         Allocation.allocateNextAvailSeat(count, cinema);//upto B4
         Allocation.allocateNextAvailSeat(count, cinema);//upto C2
 
-        assertTrue(!cinema.chkSeatAvail("C2"));
-        assertTrue(cinema.chkSeatAvail("C3"));
+        assertTrue(!SeatsCheck.chkSeatAvail("C2", cinema));
+        assertTrue(SeatsCheck.chkSeatAvail("C3", cinema));
     }
 
     @Test
@@ -86,10 +86,10 @@ public class MovieSeatAllocationTest {
         Allocation.allocateNextAvailSeat(3, cinema); //upto B4
         Allocation.allocateNextAvailSeat(3, cinema); //upto c2
         Allocation.allocateNextAvailSeat(3, cinema); //upto c5
-        //cinema.allocateNextAvailSeat(3); //upto c5
 
-        assertTrue(!cinema.chkSeatAvail("C5"));
-//        assertTrue(cinema.chkSeatAvail("B5"));
+
+        assertTrue(!SeatsCheck.chkSeatAvail("C5",cinema ));
+
     }
     @Test
     public void RejectforNoMoreSeat(){
@@ -102,9 +102,7 @@ public class MovieSeatAllocationTest {
         Allocation.allocateNextAvailSeat(3, cinema); //upto c2
         Allocation.allocateNextAvailSeat(2, cinema); //upto c4
 
-
         assertEquals("NO", cinema.AcceptRequestSeat(3, cinema.listOfSeats[2][4]));
-//        assertTrue(cinema.chkSeatAvail("B5"));
     }
 
     //Test boundary case of last allocated is C4

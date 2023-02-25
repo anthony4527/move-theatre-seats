@@ -47,6 +47,24 @@ public class SeatsCheck {
 
             return (remainingRows * cinema.MaxRowSeat + availOnRow);
         }
+    }
 
+    public static boolean chkSeatAvail(String seatNo, Cinema cinema){
+        //this method check if a specific seat e.g. A5 is available
+
+        STATUS sts;
+        int rowIndex =0;
+        //identify the row label and number, and perform lookup
+        String rowLabel = seatNo.substring(0,1);
+        int rowNum = Character.getNumericValue(seatNo.charAt(1))-1;
+        //lookup list of seat to check seat status
+        rowIndex = cinema.mapRowIndex(rowLabel);
+
+        if (cinema.listOfSeats[rowIndex][rowNum].sts.equals(STATUS.AVAIL) ){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
