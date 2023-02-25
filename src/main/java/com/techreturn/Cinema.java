@@ -39,12 +39,4 @@ public class Cinema {
         return rowIdx;
     }
 
-    public String AcceptRequestSeat(int i, MovieSeat seat) {
-        if (SeatsCheck.remainingSeats(seat, this) >= i){
-            return ("YES");
-        }
-        else {
-            return ("NO");
-        }
-    }
 }

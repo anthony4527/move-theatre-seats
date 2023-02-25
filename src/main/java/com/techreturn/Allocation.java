@@ -54,4 +54,13 @@ public class Allocation {
 
         allocateSeatByIndex(rowIndex, rowNum, cinema);
     }
+
+    public static String AcceptRequestSeat(int i, MovieSeat seat, Cinema cinema) {
+        if (SeatsCheck.remainingSeats(seat, cinema) >= i){
+            return ("YES");
+        }
+        else {
+            return ("NO");
+        }
+    }
 }

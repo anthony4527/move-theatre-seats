@@ -103,7 +103,7 @@ public class MovieSeatAllocationTest {
         Allocation.allocateNextAvailSeat(3, cinema); //upto c2
         Allocation.allocateNextAvailSeat(2, cinema); //upto c4
 
-        assertEquals("NO", cinema.AcceptRequestSeat(3, cinema.listOfSeats[2][4]));
+        assertEquals("NO", Allocation.AcceptRequestSeat(3, cinema.listOfSeats[2][4], cinema));
     }
 
     //Test boundary case of last allocated is C4
