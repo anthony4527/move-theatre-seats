@@ -18,7 +18,7 @@ public class MovieSeatAllocationTest {
     public void testSeatAllocated(){
         String seatNo = "A1";
         Cinema cinema = new Cinema();
-        cinema.allocateSeat(seatNo);
+        Allocation.allocateSeat(seatNo, cinema);
         assertTrue(!SeatsCheck.chkSeatAvail(seatNo, cinema));
     }
 
@@ -27,7 +27,7 @@ public class MovieSeatAllocationTest {
         //String seatNo = "A1";
         int count =1;
         Cinema cinema = new Cinema();
-        cinema.allocateSeat("A1");
+        Allocation.allocateSeat("A1", cinema);
         Allocation.allocateNextAvailSeat(count, cinema);
         assertTrue(!SeatsCheck.chkSeatAvail("A2", cinema));
     }
@@ -36,8 +36,9 @@ public class MovieSeatAllocationTest {
         //String seatNo = "A1";
         int count=1;
         Cinema cinema = new Cinema();
-        cinema.allocateSeat("A1");
-        cinema.allocateSeat("A2");
+        Allocation.allocateSeat("A1", cinema);
+        Allocation.allocateSeat("A2", cinema);
+
         Allocation.allocateNextAvailSeat(count, cinema);
         assertTrue(!SeatsCheck.chkSeatAvail("A3", cinema));
     }
@@ -56,7 +57,7 @@ public class MovieSeatAllocationTest {
     public void AllocateOnTwoRowsTest(){
         int  count=3;
         Cinema cinema = new Cinema();
-        // allocate three seats for one customers
+        // allocate three seats for one customer
         //allocte another three seats for another customers
         Allocation.allocateNextAvailSeat(count, cinema);
         Allocation.allocateNextAvailSeat(count, cinema);

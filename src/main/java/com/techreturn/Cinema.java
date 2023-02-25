@@ -38,35 +38,6 @@ public class Cinema {
         }
         return rowIdx;
     }
-    public boolean chkSeatAvail(String seatNo){
-
-        STATUS sts;
-        int rowIndex =0;
-        //identify the row label and number, and perform lookup
-        String rowLabel = seatNo.substring(0,1);
-        int rowNum = Character.getNumericValue(seatNo.charAt(1))-1;
-        //lookup list of seat to check seat status
-        rowIndex = mapRowIndex(rowLabel);
-
-        if (listOfSeats[rowIndex][rowNum].sts.equals(STATUS.AVAIL) ){
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-    public void allocateSeat(String seatNo) {
-        int RowIndex = mapRowIndex(seatNo.substring(0,1));
-        int rowNum = Character.getNumericValue(seatNo.charAt(1))-1;
-
-        if (this.listOfSeats[RowIndex][rowNum].sts == STATUS.AVAIL){
-            this.listOfSeats[RowIndex][rowNum].sts = STATUS.ALLOCATED;
-        } else {
-            System.out.println("seat not available, allocation not done!!  ");
-        }
-    }
-
 
     public String AcceptRequestSeat(int i, MovieSeat seat) {
         if (SeatsCheck.remainingSeats(seat, this) >= i){
